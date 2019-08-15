@@ -3,4 +3,4 @@ sudo podman kill mesbg-db
 sudo podman rm mesbg-db
 sudo podman run -d --name mesbg-db -v $dir/data:/opt/couchdb/data -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=mesbg  couchdb
 
-podman inspect mesbg-db | grep IPAddress
+sudo podman inspect mesbg-db | grep IPAddress
