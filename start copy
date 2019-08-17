@@ -1,0 +1,11 @@
+dir=$(pwd)
+sudo podman kill mesbg-db
+sudo podman rm mesbg-db mesbg-check --force
+
+
+sudo podman pod create -n mesbg
+sudo podman run -d --name mesbg-db -p 5984:5984  --hostname mesbg-db -v $dir/data:/opt/couchdb/data -e COUCHDB_USER=admin -e COUCHDB_PASSWORD=mesbg  couchdb
+
+sudo podman build  . -t mesbg-check
+
+sudo podman run  --name mesbg-check -v $dir/lists:/lists -v $dir/results:/results  localhost/mesbg-check
